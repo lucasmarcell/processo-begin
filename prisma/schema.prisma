@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Book {
+  id          String   @id @default(uuid())
+  name        String
+  edition     String
+  year        Int
+  release     Int
+  status      String
+  inventory   Int
+  institution String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("book")
+}
+
+model Institution {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  administrator String
+  cep           String
+  country       String
+  state         String
+  city          String
+  district      String
+  street        String
+  number        String
+  complement    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("institution")
+}
+
+model Administrator {
+  id    String @id @default(uuid())
+  nome  String
+  email String @unique
+  user  String @unique
+  pass  String
+
+  @@map("administrator")
+}
