@@ -47,17 +47,6 @@ export default function Dashboard({ institutions, books }: Props) {
   )
 }
 
-/* export async function getStaticProps() {
-  const resIns = await fetch('http://localhost:3000/api/institutions/countAll')
-  const institutions = await resIns.json()
-
-  return {
-    props: {
-      institutions,
-    },
-  }
-} */
-
 export const getServerSideProps: GetServerSideProps = async () => {
   const institutions = await prisma.institution.count({})
   const books = await prisma.book.count({})
